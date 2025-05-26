@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "627405394553",
+    "project_id": "ghalib-ai-db3ca",
+    "storage_bucket": "ghalib-ai-db3ca.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:627405394553:android:fc82e2a1d3b5820e1dbaa8",
+        "android_client_info": {
+          "package_name": "com.example.ghalib"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDHujk-rYIYUfpqmqo2tNnBuAJvkKWHIvI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,0 +1,5 @@
+{"flutter":{"platforms":{"android":{"default":{"projectId":"ghalib-ai-db3ca","appId":"1:627405394553:android:fc82e2a1d3b5820e1dbaa8","fileOutput":"android/app/google-services.json"}},"dart":{"lib/firebase_options.dart":{"projectId":"ghalib-ai-db3ca","configurations":{"android":"1:627405394553:android:fc82e2a1d3b5820e1dbaa8","ios":"1:627405394553:ios:364ff91275632e3a1dbaa8","macos":"1:627405394553:ios:364ff91275632e3a1dbaa8","web":"1:627405394553:web:797a1871213264b21dbaa8","windows":"1:627405394553:web:775f46f2ae3fe1d71dbaa8"}}}}},
+"functions": {
+    "source": "functions"
+  }
+}
