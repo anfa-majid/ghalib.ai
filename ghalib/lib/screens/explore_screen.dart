@@ -122,7 +122,7 @@ class _ExploreScreenState extends State<ExploreScreen>
         child: Container(
           padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 42),
           decoration: BoxDecoration(
-            color: Colors.white.withOpacity(0.07),
+            color: Colors.white.withAlpha(18),
             borderRadius: BorderRadius.circular(24),
             border: Border.all(color: Colors.white10),
           ),
@@ -139,7 +139,7 @@ class _ExploreScreenState extends State<ExploreScreen>
       margin: const EdgeInsets.only(top: 24),
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
-        color: Colors.white.withOpacity(0.05),
+        color: Colors.white.withAlpha(13),
         borderRadius: BorderRadius.circular(20),
         border: Border.all(color: Colors.white24, width: 1),
       ),

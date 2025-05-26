@@ -65,7 +65,7 @@ class _GetStartedScreenState extends State<GetStartedScreen> with TickerProvider
           Positioned.fill(
             child: BackdropFilter(
               filter: ImageFilter.blur(sigmaX: 6, sigmaY: 6),
-              child: Container(color: Colors.black.withOpacity(0.3)),
+              child: Container(color: Colors.black.withAlpha(77)),
             ),
           ),
           Positioned.fill(
