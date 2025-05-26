@@ -90,20 +90,20 @@ class CategoryChips extends StatelessWidget {
                 decoration: BoxDecoration(
                   gradient: LinearGradient(
                     colors: [
-                      Colors.white.withOpacity(0.08),
-                      Colors.white.withOpacity(0.03),
+                      Colors.white.withAlpha(20), 
+                      Colors.white.withAlpha(8),
                     ],
                     begin: Alignment.topLeft,
                     end: Alignment.bottomRight,
                   ),
                   borderRadius: BorderRadius.circular(25),
                   border: Border.all(
-                    color: Colors.white.withOpacity(0.2),
+                    color: Colors.white.withAlpha(51),
                     width: 1,
                   ),
                   boxShadow: [
                     BoxShadow(
-                      color: Colors.purpleAccent.withOpacity(0.2),
+                      color: Colors.purpleAccent.withAlpha(51),
                       blurRadius: 6,
                       spreadRadius: 2,
                       offset: const Offset(0, 3),

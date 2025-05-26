@@ -52,12 +52,12 @@ class PoemCard extends StatelessWidget {
               child: Container(
                 padding: const EdgeInsets.all(18),
                 decoration: BoxDecoration(
-                  color: Colors.white.withOpacity(0.05),
+                  color: Colors.white.withAlpha(13), 
                   borderRadius: BorderRadius.circular(20),
-                  border: Border.all(color: Colors.white.withOpacity(0.15)),
+                  border: Border.all(color: Colors.white.withAlpha(38)),
                   boxShadow: [
                     BoxShadow(
-                      color: Colors.purple.withOpacity(0.4),
+                     color: Colors.purple.withAlpha(102),
                       blurRadius: 20,
                       offset: const Offset(0, 5),
                     ),
@@ -71,7 +71,7 @@ class PoemCard extends StatelessWidget {
                       style: GoogleFonts.playfairDisplay(
                         color: Colors.white,
                         fontSize: 17,
-                        fontWeight: FontWeight.w400, // Use w400 to match your available font
+                        fontWeight: FontWeight.w400, 
                         letterSpacing: 0.5,
                       ),
                       maxLines: 1,

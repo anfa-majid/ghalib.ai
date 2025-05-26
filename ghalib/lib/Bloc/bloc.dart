@@ -10,14 +10,14 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
 
   AuthBloc({required this.authRepository}) : super(AuthInitial()) {
     on<AppStarted>((event, emit) async {
-  await Future.delayed(Duration(milliseconds: 100)); // ⏳ Give Firebase time to rehydrate state
+  await Future.delayed(Duration(milliseconds: 100)); 
   final user = authRepository.getCurrentUser();
 
   if (user != null) {
-    print("✅ Firebase restored user session");
+    print("Firebase restored user session");
     emit(Authenticated());
   } else {
-    print("🚫 No user session found");
+    print("No user session found");
     emit(Unauthenticated());
   }
 });
@@ -30,15 +30,15 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
 
         final isRegistered = await authRepository.signInWithGoogle();
         if (isRegistered) {
-          print('✅ Google Sign-In & Firestore check passed.');
+          print('Google Sign-In & Firestore check passed.');
           await Future.delayed(const Duration(milliseconds: 300));
           emit(Authenticated());
         } else {
-          print('❗ User is not registered.');
+          print('User is not registered.');
           emit(UserNotRegistered());
         }
       } catch (error) {
-        print('❌ Sign-In Failed: $error');
+        print('Sign-In Failed: $error');
         emit(LoginFailed(error.toString()));
       }
     });
@@ -55,15 +55,15 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         emit(Loading());
 
         await authRepository.signInWithEmailAndPassword(event.email, event.password);
-        print('✅ Email/Password Login Successful!');
+        print('Email/Password Login Successful!');
         await Future.delayed(const Duration(milliseconds: 300));
         emit(Authenticated());
       } catch (error) {
         if (error.toString().contains('UserNotRegistered')) {
-          print('❗ User is not registered.');
+          print('User is not registered.');
           emit(UserNotRegistered());
         } else {
-          print('❌ Email/Password Login Failed: $error');
+          print('Email/Password Login Failed: $error');
           emit(LoginFailed(error.toString()));
         }
       }
@@ -77,10 +77,10 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
           event.password,
           event.userName,
         );
-        print('✅ Registration Successful!');
+        print('Registration Successful!');
         emit(Authenticated());
       } catch (error) {
-        print('❌ Registration Failed: $error');
+        print('Registration Failed: $error');
         emit(LoginFailed(error.toString()));
       }
     });
@@ -89,14 +89,14 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     on<RegisterWithGoogleRequested>((event, emit) async {
       try {
         await authRepository.registerWithGoogle();
-        print('✅ Google Register Successful!');
+        print('Google Register Successful!');
         emit(Authenticated());
       } catch (error) {
         if (error.toString().contains('AlreadyRegistered')) {
-          print('❗ User already exists. Please Login.');
+          print('User already exists. Please Login.');
           emit(LoginFailed('Account already exists. Please login.'));
         } else {
-          print('❌ Google Register Failed: $error');
+          print('Google Register Failed: $error');
           emit(LoginFailed(error.toString()));
         }
       }
@@ -117,7 +117,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
 
     emit(FavoriteAdded());
 
-    // ✅ Schedule LoadFavorites outside current handler
+    // Schedule LoadFavorites outside current handler
     await Future.delayed(Duration(milliseconds: 100));
     add(LoadFavorites(event.userEmail));
   } catch (e) {
@@ -127,14 +127,14 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
 
 
     on<LoadFavorites>((event, emit) async {
-  print("➡️ LoadFavorites event triggered for ${event.userEmail}");
+  print("LoadFavorites event triggered for ${event.userEmail}");
   emit(FavoritesLoading());
   try {
     final userRef = FirebaseFirestore.instance.collection('user').doc(event.userEmail);
     final userDoc = await userRef.get();
 
     final favoriteIds = List<String>.from(userDoc['favorites'] ?? []);
-    print("✅ Fetched ${favoriteIds.length} favorite IDs");
+    print("Fetched ${favoriteIds.length} favorite IDs");
 
     if (favoriteIds.isEmpty) {
       emit(const FavoritesLoaded([]));
@@ -158,10 +158,10 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       };
     }).toList();
 
-    print("✅ Loaded ${poems.length} poems");
+    print("Loaded ${poems.length} poems");
     emit(FavoritesLoaded(poems));
   } catch (e) {
-    print("❌ Error loading favorites: $e");
+    print("Error loading favorites: $e");
     emit(FavoritesError("Failed to load favorites."));
   }
 });
@@ -174,7 +174,7 @@ on<RemovePoemFromFavorites>((event, emit) async {
       'favorites': FieldValue.arrayRemove([event.poemId])
     });
 
-    // ✅ Schedule LoadFavorites after a slight delay
+    // Schedule LoadFavorites after a slight delay
     await Future.delayed(Duration(milliseconds: 100));
     add(LoadFavorites(event.userEmail));
   } catch (e) {

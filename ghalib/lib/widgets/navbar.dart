@@ -133,7 +133,7 @@ Widget build(BuildContext context) {
                     padding: const EdgeInsets.symmetric(vertical: 8),
                     child: const Center(
                       child: Text(
-                        "⚠️ You're offline",
+                        "You're offline",
                         style: TextStyle(color: Colors.white),
                       ),
                     ),
@@ -155,12 +155,12 @@ Widget build(BuildContext context) {
               child: Container(
                 height: 65,
                 decoration: BoxDecoration(
-                  color: Colors.grey[900]?.withOpacity(0.85),
+                  color: Colors.grey[900]?.withAlpha(217),
                   borderRadius: BorderRadius.circular(24),
                   boxShadow: [
                     BoxShadow(
                       blurRadius: 10,
-                      color: Colors.black.withOpacity(0.3),
+                      color: Colors.black.withAlpha(77),
                     ),
                   ],
                 ),

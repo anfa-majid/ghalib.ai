@@ -41,7 +41,7 @@ class _PoemDetailScreenState extends State<PoemDetailScreen> {
   bool _hasLoadedFavorites = false;
   late final UserService _userService;
 
-  // Flag to skip connectivity check during tests
+  //skip connectivity check during tests
   final bool skipConnectivityCheck =
       const bool.fromEnvironment('SKIP_CONNECTIVITY_CHECK', defaultValue: false);
 
@@ -79,8 +79,8 @@ class _PoemDetailScreenState extends State<PoemDetailScreen> {
   Widget build(BuildContext context) {
     final userEmail = _userService.getCurrentUserEmail();
 
-    return WillPopScope(
-      onWillPop: () async => true,
+    return PopScope(
+      canPop: true,
       child: Scaffold(
         extendBodyBehindAppBar: true,
         appBar: AppBar(
@@ -117,7 +117,7 @@ class _PoemDetailScreenState extends State<PoemDetailScreen> {
             ),
             BackdropFilter(
               filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
-              child: Container(color: Colors.black.withOpacity(0.5)),
+              child: Container(color: const Color.fromARGB(127, 0, 0, 0)),
             ),
             Column(
               children: [
@@ -179,7 +179,7 @@ class _PoemDetailScreenState extends State<PoemDetailScreen> {
                                 await Clipboard.setData(ClipboardData(text: widget.fullPoem));
                                 ScaffoldMessenger.of(context).showSnackBar(
                                   const SnackBar(
-                                    content: Text("Poem copied to clipboard 📋"),
+                                    content: Text("Poem copied to clipboard"),
                                     backgroundColor: Colors.purple,
                                     duration: Duration(seconds: 2),
                                   ),

@@ -30,7 +30,7 @@ class PoetryOfDayCard extends StatelessWidget {
 
     await flutterLocalNotificationsPlugin.show(
       0,
-      '🌟 Poetry of the Day',
+      'Poetry of the Day',
       '"$line"\n— $title',
       notificationDetails,
     );
@@ -73,7 +73,7 @@ class PoetryOfDayCard extends StatelessWidget {
         if (snapshot.hasError || !snapshot.hasData || snapshot.data!.docs.isEmpty) {
           return const Center(
             child: Text(
-              "No poetry for today 💭",
+              "No poetry for today",
               style: TextStyle(color: Colors.white70),
             ),
           );
@@ -122,12 +122,12 @@ class PoetryOfDayCard extends StatelessWidget {
                   width: double.infinity,
                   padding: const EdgeInsets.all(28),
                   decoration: BoxDecoration(
-                    color: Colors.white.withOpacity(0.05),
+                    color: Colors.white.withAlpha(13),
                     borderRadius: BorderRadius.circular(25),
-                    border: Border.all(color: Colors.white.withOpacity(0.2)),
+                    border: Border.all(color: Colors.white.withAlpha(51)),
                     boxShadow: [
                       BoxShadow(
-                        color: Colors.purple.withOpacity(0.4),
+                        color: Colors.purple.withAlpha(102),
                         blurRadius: 30,
                         offset: const Offset(0, 8),
                       ),

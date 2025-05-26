@@ -111,7 +111,7 @@ class _FavoritesCarouselState extends State<FavoritesCarousel> {
                           ),
                           boxShadow: [
                             BoxShadow(
-                              color: Colors.black.withOpacity(0.3),
+                              color: Colors.black.withAlpha(77),
                               offset: const Offset(0, 4),
                               blurRadius: 12,
                             ),

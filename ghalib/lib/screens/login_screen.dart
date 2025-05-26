@@ -80,8 +80,8 @@ class _LoginScreenState extends State<LoginScreen> {
                   child: SingleChildScrollView(
                     child: ConstrainedBox(
                       constraints: kDebugMode
-                          ? const BoxConstraints(maxHeight: 700)  // Fix for tests/debug mode
-                          : const BoxConstraints(),               // No constraint in release mode
+                          ? const BoxConstraints(maxHeight: 700)  
+                          : const BoxConstraints(),               
                       child: Column(
                         mainAxisSize: MainAxisSize.min,
                         children: [

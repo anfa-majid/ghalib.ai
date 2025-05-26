@@ -40,18 +40,18 @@ class ConnectivityBloc extends Bloc<ConnectivityEvent, ConnectivityState> {
           : result;
 
       final isOnline = await _hasInternetAccess();
-      print("📡 Connectivity Changed: ${resolvedResult.toString()} → Real Internet: $isOnline");
+      print("Connectivity Changed: ${resolvedResult.toString()} → Real Internet: $isOnline");
       add(ConnectivityChanged(isOnline));
     });
 
     on<ConnectivityChanged>((event, emit) {
-      print("🚦 Emitting ConnectivityState: isOnline = ${event.isOnline}");
+      print("Emitting ConnectivityState: isOnline = ${event.isOnline}");
       emit(ConnectivityState(isOnline: event.isOnline));
     });
 
     on<CheckConnectivity>((event, emit) async {
       final isOnline = await _hasInternetAccess();
-      print("🔍 Manual Connectivity Check → Real Internet: $isOnline");
+      print("Manual Connectivity Check → Real Internet: $isOnline");
       emit(ConnectivityState(isOnline: isOnline));
     });
 
@@ -60,7 +60,7 @@ class ConnectivityBloc extends Bloc<ConnectivityEvent, ConnectivityState> {
 
   void _checkInitialConnectivity() async {
     final isOnline = await _hasInternetAccess();
-    print("🚀 Initial Connectivity Check → Real Internet: $isOnline");
+    print("Initial Connectivity Check → Real Internet: $isOnline");
     add(ConnectivityChanged(isOnline));
   }
 
@@ -69,7 +69,7 @@ class ConnectivityBloc extends Bloc<ConnectivityEvent, ConnectivityState> {
       final result = await InternetAddress.lookup('example.com');
       return result.isNotEmpty && result[0].rawAddress.isNotEmpty;
     } on SocketException {
-      print("❌ No internet access (DNS lookup failed)");
+      print("No internet access (DNS lookup failed)");
       return false;
     }
   }

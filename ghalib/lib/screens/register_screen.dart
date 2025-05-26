@@ -26,9 +26,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
     return BlocConsumer<AuthBloc, AuthState>(
       listener: (context, state) {
-        // ✅ Let main.dart respond to Authenticated state
         if (state is Authenticated) {
-          // No manual navigation needed
         }
       },
       builder: (context, state) {
@@ -50,7 +48,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
               Positioned.fill(
                 child: BackdropFilter(
                   filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
-                  child: Container(color: Colors.black.withOpacity(0.5)),
+                  child: Container(color: Colors.black.withAlpha(127)),
                 ),
               ),
               Center(
@@ -58,12 +56,12 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   width: size.width * 0.85,
                   padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 32),
                   decoration: BoxDecoration(
-                    color: Colors.white.withOpacity(0.1),
+                    color: Colors.white.withAlpha(25),
                     borderRadius: BorderRadius.circular(25),
-                    border: Border.all(color: Colors.white.withOpacity(0.2)),
+                    border: Border.all(color: Colors.white.withAlpha(51)),
                     boxShadow: [
                       BoxShadow(
-                        color: Colors.black.withOpacity(0.25),
+                        color: Colors.black.withAlpha(64),
                         blurRadius: 20,
                         offset: const Offset(0, 8),
                       ),

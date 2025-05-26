@@ -10,7 +10,6 @@ import 'package:ghalib/Bloc/event.dart';
 import 'package:ghalib/Bloc/state.dart';
 import 'package:ghalib/services/auth_repository.dart';
 
-// Dummy AuthRepository with no-op implementations
 class DummyAuthRepository implements AuthRepository {
   @override
   Future<bool> signInWithGoogle() async => true;

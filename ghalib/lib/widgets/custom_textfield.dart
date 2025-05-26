@@ -24,10 +24,10 @@ class CustomTextField extends StatelessWidget {
       style: const TextStyle(color: Colors.white),
       decoration: InputDecoration(
         filled: true,
-        fillColor: Colors.white.withOpacity(0.1),
+        fillColor: Colors.white.withAlpha(25),
         hintText: hintText,
         hintStyle: const TextStyle(color: Colors.white60),
-        errorText: errorText, // <-- Add this to show error below field
+        errorText: errorText,
         enabledBorder: OutlineInputBorder(
           borderSide: BorderSide(color: borderColor),
           borderRadius: BorderRadius.circular(15),

@@ -41,7 +41,6 @@ class _GetStartedScreenState extends State<GetStartedScreen> with TickerProvider
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    // ✅ Safely capture Bloc here once
     authBloc = BlocProvider.of<AuthBloc>(context);
   }
 
@@ -128,8 +127,6 @@ class _GetStartedScreenState extends State<GetStartedScreen> with TickerProvider
                       ),
                     ),
                     const Spacer(flex: 5),
-
-                    // 🚀 Animated Get Started Button
                     AnimatedBuilder(
                       animation: _buttonElevationAnimation,
                       builder: (context, child) {
@@ -141,7 +138,7 @@ class _GetStartedScreenState extends State<GetStartedScreen> with TickerProvider
                               Navigator.of(context).pushReplacement(
                                 MaterialPageRoute(
                                   builder: (_) => BlocProvider.value(
-                                    value: authBloc, // ✅ Using the captured Bloc here
+                                    value: authBloc, 
                                     child: const LoginScreen(),
                                   ),
                                 ),

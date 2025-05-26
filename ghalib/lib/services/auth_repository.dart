@@ -7,7 +7,7 @@ class AuthRepository {
   final GoogleSignIn _googleSignIn = GoogleSignIn();
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
-  // ✅ GOOGLE Sign-In
+  // GOOGLE Sign-In
   Future<bool> signInWithGoogle() async {
     final GoogleSignInAccount? googleUser = await _googleSignIn.signIn();
     if (googleUser == null) {
@@ -25,23 +25,23 @@ class AuthRepository {
     final user = userCredential.user;
 
     if (user != null) {
-      print('✅ Google Sign-In successful for ${user.email}');
+      print('Google Sign-In successful for ${user.email}');
       final doc = await _firestore.collection('user').doc(user.uid).get();
 
       if (!doc.exists) {
         // User signed in but no Firestore document — treat as not registered
         await signOut();
-        print('❗ User authenticated but not registered in Firestore.');
+        print('User authenticated but not registered in Firestore.');
         return false;
       } else {
-        print('✅ User exists in Firestore.');
+        print('User exists in Firestore.');
         return true;
       }
     }
     throw Exception('Something went wrong during Google Sign In.');
   }
 
-  // ✅ Email/Password Sign-In
+  // Email/Password Sign-In
   Future<void> signInWithEmailAndPassword(String email, String password) async {
     try {
       final credential = await _firebaseAuth.signInWithEmailAndPassword(
@@ -56,14 +56,14 @@ class AuthRepository {
           await signOut();
           throw Exception('UserNotRegistered');
         }
-        print('✅ Email-Password User exists in Firestore.');
+        print('Email-Password User exists in Firestore.');
       }
     } on FirebaseAuthException catch (e) {
       throw Exception(e.message ?? 'Unknown Error');
     }
   }
 
-  // ✅ Email/Password Registration
+  // Email/Password Registration
   Future<void> registerWithEmailAndPassword(String email, String password, String userName) async {
     try {
       final userCredential = await _firebaseAuth.createUserWithEmailAndPassword(
@@ -79,7 +79,7 @@ class AuthRepository {
           'favorites': [],
           'mood': 'neutral',
         });
-        print('✅ Firestore user document created!');
+        print('Firestore user document created!');
       }
     } on FirebaseAuthException catch (e) {
       if (e.code == 'email-already-in-use') {
@@ -90,7 +90,7 @@ class AuthRepository {
     }
   }
 
-  // ✅ Google Registration
+  // Google Registration
   Future<void> registerWithGoogle() async {
     final GoogleSignInAccount? googleUser = await _googleSignIn.signIn();
     if (googleUser == null) {
@@ -108,7 +108,7 @@ class AuthRepository {
     final user = userCredential.user;
 
     if (user != null) {
-      print('✅ Google Register attempt for ${user.email}');
+      print('Google Register attempt for ${user.email}');
 
       final doc = await _firestore.collection('user').doc(user.uid).get();
       if (doc.exists) {
@@ -121,18 +121,18 @@ class AuthRepository {
           'favorites': [],
           'mood': 'neutral',
         });
-        print('✅ Firestore document created for new Google user.');
+        print('Firestore document created for new Google user.');
       }
     }
   }
 
-  // ✅ Sign Out
+  // Sign Out
   Future<void> signOut() async {
     await _googleSignIn.signOut();
     await _firebaseAuth.signOut();
   }
 
-  // ✅ Current User
+  // Current User
   User? getCurrentUser() {
     return _firebaseAuth.currentUser;
   }

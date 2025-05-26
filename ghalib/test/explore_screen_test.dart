@@ -35,7 +35,7 @@ void main() {
 
     setUp(() {
       exploreBloc = ExploreBloc();
-      silentConnectivityBloc = ConnectivityBloc.silent(); // ✅ no platform streams triggered
+      silentConnectivityBloc = ConnectivityBloc.silent(); 
     });
 
     goldenTest(

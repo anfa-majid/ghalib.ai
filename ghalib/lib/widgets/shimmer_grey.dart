@@ -26,7 +26,7 @@ class Shimmerload extends StatelessWidget {
               decoration: BoxDecoration(
                 color: Colors.grey[800],
                 borderRadius: BorderRadius.circular(20),
-                border: Border.all(color: Colors.white.withOpacity(0.15)),
+                border: Border.all(color: Colors.white.withAlpha(38)),
               ),
             ),
           );

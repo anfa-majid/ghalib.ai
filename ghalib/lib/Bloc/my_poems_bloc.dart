@@ -35,7 +35,7 @@ class MyPoemsBloc extends Bloc<MyPoemsEvent, MyPoemsState> {
     on<DeletePoem>((event, emit) async {
       try {
         await FirebaseFirestore.instance.collection('poem').doc(event.poemId).delete();
-        print("🗑️ Poem deleted: ${event.poemId}");
+        print("Poem deleted: ${event.poemId}");
         add(LoadMyPoems(event.userEmail));
       } catch (e) {
         emit(MyPoemsError("Failed to delete poem."));

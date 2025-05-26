@@ -21,7 +21,7 @@ class PoetryService {
     await prefs.setString('lastPoetryFetchDate', today);
   }
 
-  /// 🌞 Generates a featured poem (Ghalib/Rumi/Iqbal only)
+  
   static Future<void> generateAndUploadPoetry() async {
     try {
       final model = GenerativeModel(
@@ -89,11 +89,10 @@ Strictly follow this clean JSON format (no extra comments or text):
           .get();
 
       if (existing.docs.isNotEmpty) {
-        print("⚠️ Duplicate poem already exists. Skipping upload.");
+        print("Duplicate poem already exists. Skipping upload.");
         return;
       }
 
-      // Unmark previous
       final oldPoems = await FirebaseFirestore.instance
           .collection('poem')
           .where('isPoetryOfTheDay', isEqualTo: true)
@@ -103,7 +102,7 @@ Strictly follow this clean JSON format (no extra comments or text):
         await doc.reference.update({'isPoetryOfTheDay': false});
       }
 
-      // Upload new
+      
       await FirebaseFirestore.instance.collection('poem').add({
         'title': title,
         'author': author,
@@ -115,9 +114,9 @@ Strictly follow this clean JSON format (no extra comments or text):
         'createdAt': FieldValue.serverTimestamp(),
       });
 
-      print("✅ New Poetry of the Day uploaded successfully.");
+      print("New Poetry of the Day uploaded successfully.");
     } catch (e) {
-      print("❌ Error in PoetryService: $e");
+      print("Error in PoetryService: $e");
     }
   }
 
@@ -218,7 +217,7 @@ Return the following strictly in clean JSON (no comments or explanations):
         'fullPoem': content,
       };
     } catch (e) {
-      print("❌ Error generating mood poem: $e");
+      print("Error generating mood poem: $e");
       return null;
     }
   }
@@ -239,10 +238,9 @@ static Map<String, dynamic>? _extractJson(String text) {
 
     final jsonString = cleaned.substring(start, end + 1);
 
-    // Parse using dart:convert
     return json.decode(jsonString);
   } catch (e) {
-    print("❌ JSON parsing failed: $e");
+    print("JSON parsing failed: $e");
     return null;
   }
 }

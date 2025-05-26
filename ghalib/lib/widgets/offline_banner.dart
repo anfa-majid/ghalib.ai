@@ -9,7 +9,7 @@ class OfflineBanner extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<ConnectivityBloc, ConnectivityState>(
       builder: (context, state) {
-        print("🧩 OfflineBanner build: isOnline = ${state.isOnline}");
+        print("OfflineBanner build: isOnline = ${state.isOnline}");
         if (state.isOnline) return const SizedBox.shrink();
 
         print("Showing RED BANNER");

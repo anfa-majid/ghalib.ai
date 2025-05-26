@@ -280,7 +280,7 @@ class WritePoemScreen extends StatelessWidget {
                               child: Container(
                                 padding: const EdgeInsets.symmetric(vertical: 30, horizontal: 24),
                                 decoration: BoxDecoration(
-                                  color: Colors.black.withOpacity(0.4),
+                                  color: Colors.black.withAlpha(102),
                                   borderRadius: BorderRadius.circular(20),
                                   border: Border.all(color: Colors.white30),
                                 ),

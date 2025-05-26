@@ -1,11 +1,10 @@
-import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
 
-import '../Bloc/bloc.dart'; // AuthBloc
+import '../Bloc/bloc.dart'; 
 import '../Bloc/event.dart';
 import '../Bloc/state.dart'; 
 import '../Bloc/my_poems_bloc.dart';
@@ -17,8 +16,8 @@ import '../main.dart';
 import '../widgets/shimmer_grey.dart';
 
 class MyPoemsScreen extends StatefulWidget {
-  final String? userEmail;  // optional userEmail for tests
-  final bool skipConnectivityCheck; // flag to skip connectivity check (default false)
+  final String? userEmail;  
+  final bool skipConnectivityCheck; 
 
   const MyPoemsScreen({
     super.key,
@@ -48,7 +47,7 @@ class _MyPoemsScreenState extends State<MyPoemsScreen>
     if (!widget.skipConnectivityCheck) {
       Future.microtask(() => _checkConnectivityAndLoad());
     } else {
-      // Directly load from blocs without connectivity check (useful for tests)
+      // Directly load from blocs without connectivity check (issues with testing)
       context.read<MyPoemsBloc>().add(LoadMyPoems(userEmail));
       context.read<AuthBloc>().add(LoadFavorites(userEmail));
     }

@@ -14,7 +14,6 @@ import 'package:ghalib/Bloc/state.dart';
 import 'package:ghalib/Bloc/event.dart';
 import 'package:ghalib/services/user_services.dart';
 
-// --- MOCK CLASSES ---
 class MockUserService extends Mock implements UserService {}
 
 class MockAuthBloc extends Mock implements AuthBloc {}
@@ -62,7 +61,7 @@ void main() {
       firebaseAuth,
       (MethodCall methodCall) async {
         if (methodCall.method == 'getCurrentUser') {
-          return {'uid': 'mock_uid', 'email': 'mock@email.com'};
+          return {'uid': 'mock_uid', 'email': 'mocak@email.com'};
         }
         return null;
       },
