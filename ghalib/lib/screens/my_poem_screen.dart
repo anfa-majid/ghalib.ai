@@ -14,6 +14,7 @@ import '../widgets/poem_card.dart';
 import '../utils/cache.dart';
 import '../main.dart';
 import '../widgets/shimmer_grey.dart';
+import '../model/poem_model.dart';
 
 class MyPoemsScreen extends StatefulWidget {
   final String? userEmail;  
@@ -121,9 +122,21 @@ class _MyPoemsScreenState extends State<MyPoemsScreen>
           childAspectRatio: 1.05,
         ),
         itemBuilder: (_, idx) {
+          final poemMap = poems[idx];
+          final poem = Poem.fromMap(poemMap['id'], {
+            'title': poemMap['title'],
+            'author': poemMap['author'],
+            'moodTag': poemMap['mood'],
+            'stanza': poemMap['stanza'],
+            'content': poemMap['fullPoem'],
+            'highlightLine': '',
+            'isPoetryOfTheDay': false,
+            'createdAt': null,
+          });
+          
           return Transform.rotate(
             angle: -0.052,
-            child: PoemCard(poem: poems[idx],userEmail: userEmail, showDelete: showDelete),
+            child: PoemCard(poem: poem, userEmail: userEmail, showDelete: showDelete),
           );
         },
       ),

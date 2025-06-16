@@ -12,6 +12,7 @@ import '../widgets/shimmer_loader.dart';
 import '../screens/poem_detail_screen.dart';
 import '../Bloc/bloc.dart';
 import '../main.dart';
+import '../model/poem_model.dart';
 
 class ExploreScreen extends StatefulWidget {
   const ExploreScreen({super.key});
@@ -236,13 +237,17 @@ class _ExploreScreenState extends State<ExploreScreen>
                       BlocProvider.value(value: context.read<AuthBloc>()),
                       BlocProvider.value(value: context.read<ExploreBloc>()),
                     ],
-                    child: PoemDetailScreen(
-                      id: state.poem['id'] ?? '',
-                      title: state.poem['title'],
-                      author: state.poem['author'],
-                      mood: state.poem['mood'],
-                      stanza: state.poem['stanza'],
-                      fullPoem: state.poem['fullPoem'],
+                    child: PoemDetailScreen.fromPoem(
+                      poem: Poem.fromMap(state.poem['id'] ?? '', {
+                        'title': state.poem['title'],
+                        'author': state.poem['author'],
+                        'moodTag': state.poem['mood'],
+                        'stanza': state.poem['stanza'],
+                        'content': state.poem['fullPoem'],
+                        'highlightLine': '',
+                        'isPoetryOfTheDay': false,
+                        'createdAt': null,
+                      }),
                     ),
                   ),
                 ),

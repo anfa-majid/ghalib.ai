@@ -6,6 +6,7 @@ import '../Bloc/event.dart';
 import '../Bloc/state.dart';
 import '../screens/poem_detail_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
+import '../model/poem_model.dart';
 
 class FavoritesCarousel extends StatefulWidget {
   const FavoritesCarousel({Key? key}) : super(key: key);
@@ -75,7 +76,17 @@ class _FavoritesCarouselState extends State<FavoritesCarousel> {
               itemCount: favoritePoems.length,
               physics: const BouncingScrollPhysics(),
               itemBuilder: (context, index) {
-                final poem = favoritePoems[index];
+                final poemMap = favoritePoems[index];
+                final poem = Poem.fromMap(poemMap['id'], {
+                  'title': poemMap['title'],
+                  'author': poemMap['author'],
+                  'moodTag': poemMap['mood'],
+                  'stanza': poemMap['stanza'],
+                  'content': poemMap['fullPoem'],
+                  'highlightLine': '',
+                  'isPoetryOfTheDay': false,
+                  'createdAt': null,
+                });
 
                 return Stack(
                   children: [
@@ -85,12 +96,12 @@ class _FavoritesCarouselState extends State<FavoritesCarousel> {
                           context,
                           MaterialPageRoute(
                             builder: (_) => PoemDetailScreen(
-                              id: poem['id'],
-                              title: poem['title'],
-                              author: poem['author'],
-                              mood: poem['mood'],
-                              stanza: poem['stanza'],
-                              fullPoem: poem['fullPoem'],
+                              id: poem.id,
+                              title: poem.title,
+                              author: poem.author,
+                              mood: poem.moodTag,
+                              stanza: poem.stanza,
+                              fullPoem: poem.content,
                             ),
                           ),
                         ).then((_) {
@@ -127,7 +138,7 @@ class _FavoritesCarouselState extends State<FavoritesCarousel> {
                           child: Padding(
                             padding: const EdgeInsets.only(right: 30, top: 10),
                             child: Text(
-                              poem['title'],
+                              poem.title,
                               style: const TextStyle(
                                 fontSize: 20,
                                 color: Colors.white,
@@ -186,7 +197,7 @@ class _FavoritesCarouselState extends State<FavoritesCarousel> {
                           if (confirm == true && user != null) {
                             context.read<AuthBloc>().add(RemovePoemFromFavorites(
                                   userEmail: user.email!,
-                                  poemId: poem['id'],
+                                  poemId: poem.id,
                                 ));
                           }
                         },

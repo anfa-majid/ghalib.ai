@@ -11,6 +11,7 @@ import '../Bloc/event.dart';
 import '../Bloc/state.dart';
 import '../services/user_services.dart';
 import '../widgets/offline_banner.dart';
+import '../model/poem_model.dart';
 
 class PoemDetailScreen extends StatefulWidget {
   final String id;
@@ -31,6 +32,18 @@ class PoemDetailScreen extends StatefulWidget {
     required this.fullPoem,
     this.userService,
   });
+
+  // Constructor that accepts a Poem object for better type safety
+  PoemDetailScreen.fromPoem({
+    super.key,
+    required Poem poem,
+    this.userService,
+  }) : id = poem.id,
+       title = poem.title,
+       author = poem.author,
+       mood = poem.moodTag,
+       stanza = poem.stanza,
+       fullPoem = poem.content;
 
   @override
   State<PoemDetailScreen> createState() => _PoemDetailScreenState();
@@ -134,7 +147,7 @@ class _PoemDetailScreenState extends State<PoemDetailScreen> {
                           ),
                         );
                       } else if (state is FavoritesLoaded) {
-                        final isNowFavorite = state.poems.any((poem) => poem['id'] == widget.id);
+                        final isNowFavorite = state.poems.any((poemMap) => poemMap['id'] == widget.id);
                         if (_previouslyFavorite && !isNowFavorite) {
                           ScaffoldMessenger.of(context).showSnackBar(
                             const SnackBar(
@@ -150,7 +163,7 @@ class _PoemDetailScreenState extends State<PoemDetailScreen> {
                     builder: (context, state) {
                       final isLoading = state is FavoritesLoading;
                       final isFavorite = state is FavoritesLoaded &&
-                          state.poems.any((poem) => poem['id'] == widget.id);
+                          state.poems.any((poemMap) => poemMap['id'] == widget.id);
 
                       if (state is FavoritesLoaded) {
                         _previouslyFavorite = isFavorite;

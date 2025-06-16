@@ -8,9 +8,10 @@ import '../Bloc/event.dart';
 import '../screens/poem_detail_screen.dart';
 import '../Bloc/my_poems_bloc.dart';
 import '../Bloc/my_poems_event.dart';
+import '../model/poem_model.dart';
 
 class PoemCard extends StatelessWidget {
-  final Map<String, dynamic> poem;
+  final Poem poem;
   final bool showDelete;
   final String userEmail;
 
@@ -29,12 +30,12 @@ class PoemCard extends StatelessWidget {
           context,
           MaterialPageRoute(
             builder: (_) => PoemDetailScreen(
-              id: poem['id'] ?? '',
-              title: poem['title'] ?? 'Untitled',
-              author: poem['author'] ?? 'Unknown',
-              mood: poem['mood'] ?? 'unknown',
-              stanza: poem['stanza'] ?? '',
-              fullPoem: poem['fullPoem'] ?? poem['stanza'] ?? '',
+              id: poem.id,
+              title: poem.title,
+              author: poem.author,
+              mood: poem.moodTag,
+              stanza: poem.stanza,
+              fullPoem: poem.content,
             ),
           ),
         ).then((_) {
@@ -67,7 +68,7 @@ class PoemCard extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      poem['title'] ?? 'Untitled',
+                      poem.title,
                       style: GoogleFonts.playfairDisplay(
                         color: Colors.white,
                         fontSize: 17,
@@ -80,7 +81,7 @@ class PoemCard extends StatelessWidget {
                     const SizedBox(height: 8),
                     Expanded(
                       child: Text(
-                        '"${poem['stanza'] ?? ''}"',
+                        '"${poem.stanza}"',
                         style: const TextStyle(
                           color: Colors.white70,
                           fontSize: 14,
@@ -138,9 +139,9 @@ class PoemCard extends StatelessWidget {
                         ),
                       );
 
-                      if (confirm == true && poem['id'] != null) {
+                      if (confirm == true) {
                         context.read<MyPoemsBloc>().add(
-                          DeletePoem(userEmail: userEmail, poemId: poem['id']),
+                          DeletePoem(userEmail: userEmail, poemId: poem.id),
                         );
                       }
                     },

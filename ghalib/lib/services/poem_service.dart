@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:google_generative_ai/google_generative_ai.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import '../model/poem_model.dart';
 
 
 class PoetryService {
@@ -187,14 +188,8 @@ Return the following strictly in clean JSON (no comments or explanations):
 
       if (existing.docs.isNotEmpty) {
         print("⚠️ Duplicate mood poem already exists.");
-        return {
-          'id': existing.docs.first.id,
-          'title': title,
-          'author': author,
-          'mood': moodTag,
-          'stanza': stanza,
-          'fullPoem': content,
-        };
+        final existingPoem = Poem.fromMap(existing.docs.first.id, existing.docs.first.data());
+        return existingPoem.toMap();
       }
 
       final docRef = await FirebaseFirestore.instance.collection('poem').add({
@@ -208,14 +203,19 @@ Return the following strictly in clean JSON (no comments or explanations):
         'createdAt': FieldValue.serverTimestamp(),
       });
 
-      return {
-        'id': docRef.id,
-        'title': title,
-        'author': author,
-        'mood': moodTag,
-        'stanza': stanza,
-        'fullPoem': content,
-      };
+      final newPoem = Poem(
+        id: docRef.id,
+        title: title,
+        author: author,
+        content: content,
+        createdAt: DateTime.now(),
+        highlightLine: highlightLine,
+        isPoetryOfTheDay: false,
+        moodTag: moodTag,
+        stanza: stanza,
+      );
+
+      return newPoem.toMap();
     } catch (e) {
       print("Error generating mood poem: $e");
       return null;
@@ -355,14 +355,8 @@ static Future<Map<String, dynamic>?> _uploadIfValid(Map<String, dynamic> jsonDat
       .get();
 
   if (existing.docs.isNotEmpty) {
-    return {
-      'id': existing.docs.first.id,
-      'title': title,
-      'author': author,
-      'mood': mood,
-      'stanza': stanza,
-      'fullPoem': poem,
-    };
+    final existingPoem = Poem.fromMap(existing.docs.first.id, existing.docs.first.data());
+    return existingPoem.toMap();
   }
 
   final docRef = await FirebaseFirestore.instance.collection('poem').add({
@@ -376,14 +370,19 @@ static Future<Map<String, dynamic>?> _uploadIfValid(Map<String, dynamic> jsonDat
     'createdAt': FieldValue.serverTimestamp(),
   });
 
-  return {
-    'id': docRef.id,
-    'title': title,
-    'author': author,
-    'mood': mood,
-    'stanza': stanza,
-    'fullPoem': poem,
-  };
+  final newPoem = Poem(
+    id: docRef.id,
+    title: title,
+    author: author,
+    content: poem,
+    createdAt: DateTime.now(),
+    highlightLine: highlightLine,
+    isPoetryOfTheDay: false,
+    moodTag: mood,
+    stanza: stanza,
+  );
+
+  return newPoem.toMap();
 }
 static Future<String> generateStarterLines(String mood) async {
   final model = GenerativeModel(

@@ -9,6 +9,7 @@ import '../Bloc/event.dart';
 import '../screens/poem_detail_screen.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:firebase_core/firebase_core.dart';
+import '../model/poem_model.dart';
 
 final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
     FlutterLocalNotificationsPlugin();
@@ -80,15 +81,12 @@ class PoetryOfDayCard extends StatelessWidget {
         }
 
         final doc = snapshot.data!.docs.first;
-        final data = doc.data() as Map<String, dynamic>;
-        final line = data['highlightLine'] ?? data['content'] ?? '';
-        final author = data['author'] ?? 'Unknown';
-        final title = data['title'] ?? 'Untitled';
+        final poemData = Poem.fromMap(doc.id, doc.data() as Map<String, dynamic>);
 
         // Trigger notification only if new
-        if (_lastPoemId != doc.id) {
-          _lastPoemId = doc.id;
-          Future.microtask(() => _sendPoemNotification(title, line));
+        if (_lastPoemId != poemData.id) {
+          _lastPoemId = poemData.id;
+          Future.microtask(() => _sendPoemNotification(poemData.title, poemData.highlightLine));
         }
 
         return GestureDetector(
@@ -97,12 +95,12 @@ class PoetryOfDayCard extends StatelessWidget {
               context,
               MaterialPageRoute(
                 builder: (_) => PoemDetailScreen(
-                  id: doc.id,
-                  title: title,
-                  author: author,
-                  mood: data['moodTag'] ?? 'unknown',
-                  stanza: data['stanza'] ?? '',
-                  fullPoem: data['content'] ?? '',
+                  id: poemData.id,
+                  title: poemData.title,
+                  author: poemData.author,
+                  mood: poemData.moodTag,
+                  stanza: poemData.stanza,
+                  fullPoem: poemData.content,
                 ),
               ),
             ).then((_) {
@@ -147,7 +145,7 @@ class PoetryOfDayCard extends StatelessWidget {
                       ),
                       const SizedBox(height: 20),
                       Text(
-                        '"$line"',
+                        '"${poemData.highlightLine}"',
                         style: const TextStyle(
                           color: Colors.white,
                           fontSize: 26,
@@ -160,7 +158,7 @@ class PoetryOfDayCard extends StatelessWidget {
                       Align(
                         alignment: Alignment.centerRight,
                         child: Text(
-                          "- $author",
+                          "- ${poemData.author}",
                           style: const TextStyle(
                             color: Colors.white70,
                             fontSize: 18,

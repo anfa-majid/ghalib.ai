@@ -3,6 +3,7 @@ import '../../services/auth_repository.dart';
 import 'event.dart';
 import 'state.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import '../model/poem_model.dart';
 
 
 class AuthBloc extends Bloc<AuthEvent, AuthState> {
@@ -147,15 +148,8 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         .get();
 
     final poems = poemsSnap.docs.map((doc) {
-      final data = doc.data();
-      return {
-        'id': doc.id,
-        'title': data['title'] ?? 'Untitled',
-        'author': data['author'] ?? 'Unknown',
-        'mood': data['moodTag'] ?? 'unknown',
-        'stanza': data['stanza'] ?? '',
-        'fullPoem': data['content'] ?? '',
-      };
+      final poem = Poem.fromMap(doc.id, doc.data());
+      return poem.toMap(); // Convert to Map for UI compatibility
     }).toList();
 
     print("Loaded ${poems.length} poems");

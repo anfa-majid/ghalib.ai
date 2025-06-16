@@ -6,6 +6,7 @@ import 'package:ghalib/widgets/shimmer_loader.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../Bloc/bloc.dart';
 import '../Bloc/event.dart';
+import '../model/poem_model.dart';
 
 class CategoryChips extends StatelessWidget {
   const CategoryChips({Key? key}) : super(key: key);
@@ -54,20 +55,31 @@ class CategoryChips extends StatelessWidget {
                   builder: (_) => ShimmerLoader(message: message),
                 );
 
-                final poem = await PoetryService.generatePoemByMood(mood);
+                final poemMap = await PoetryService.generatePoemByMood(mood);
                 Navigator.of(context).pop(); // remove loading dialog
 
-                if (poem != null && context.mounted) {
+                if (poemMap != null && context.mounted) {
+                  final poem = Poem.fromMap(poemMap['id'], {
+                    'title': poemMap['title'],
+                    'author': poemMap['author'],
+                    'moodTag': poemMap['mood'],
+                    'stanza': poemMap['stanza'],
+                    'content': poemMap['fullPoem'],
+                    'highlightLine': '',
+                    'isPoetryOfTheDay': false,
+                    'createdAt': null,
+                  });
+                  
                   Navigator.push(
                     context,
                     MaterialPageRoute(
                       builder: (_) => PoemDetailScreen(
-                        id: poem['id'],
-                        title: poem['title'],
-                        author: poem['author'],
-                        mood: poem['mood'],
-                        stanza: poem['stanza'],
-                        fullPoem: poem['fullPoem'],
+                        id: poem.id,
+                        title: poem.title,
+                        author: poem.author,
+                        mood: poem.moodTag,
+                        stanza: poem.stanza,
+                        fullPoem: poem.content,
                       ),
                     ),
                   ).then((_) {

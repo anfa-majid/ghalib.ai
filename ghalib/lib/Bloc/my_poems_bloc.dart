@@ -2,6 +2,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'my_poems_event.dart';
 import 'my_poems_state.dart';
+import '../model/poem_model.dart';
 
 class MyPoemsBloc extends Bloc<MyPoemsEvent, MyPoemsState> {
   MyPoemsBloc() : super(MyPoemsInitial()) {
@@ -15,15 +16,8 @@ class MyPoemsBloc extends Bloc<MyPoemsEvent, MyPoemsState> {
             .get();
 
         final poems = snapshot.docs.map((doc) {
-          final data = doc.data();
-          return {
-            'id': doc.id,
-            'title': data['title'] ?? 'Untitled',
-            'author': data['author'] ?? 'Unknown',
-            'mood': data['moodTag'] ?? 'unknown',
-            'stanza': data['stanza'] ?? '',
-            'fullPoem': data['content'] ?? '',
-          };
+          final poem = Poem.fromMap(doc.id, doc.data());
+          return poem.toMap(); // Convert to Map for UI compatibility
         }).toList();
 
         emit(MyPoemsLoaded(poems));
