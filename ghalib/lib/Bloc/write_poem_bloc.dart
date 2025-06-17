@@ -35,7 +35,7 @@ class WritePoemBloc extends Bloc<WritePoemEvent, WritePoemState> {
       try {
         // Create a temporary poem object for consistency
         final newPoem = Poem(
-          id: '', // Will be assigned by Firestore
+          id: '', 
           title: title,
           author: event.author,
           content: content,

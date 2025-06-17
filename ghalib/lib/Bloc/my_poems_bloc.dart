@@ -17,7 +17,7 @@ class MyPoemsBloc extends Bloc<MyPoemsEvent, MyPoemsState> {
 
         final poems = snapshot.docs.map((doc) {
           final poem = Poem.fromMap(doc.id, doc.data());
-          return poem.toMap(); // Convert to Map for UI compatibility
+          return poem.toMap(); 
         }).toList();
 
         emit(MyPoemsLoaded(poems));

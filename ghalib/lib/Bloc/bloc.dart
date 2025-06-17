@@ -149,7 +149,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
 
     final poems = poemsSnap.docs.map((doc) {
       final poem = Poem.fromMap(doc.id, doc.data());
-      return poem.toMap(); // Convert to Map for UI compatibility
+      return poem.toMap(); 
     }).toList();
 
     print("Loaded ${poems.length} poems");
